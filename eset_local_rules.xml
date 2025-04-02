@@ -59,7 +59,7 @@
     <group>vuln_management,appsec,</group>
   </rule>
 
-  <rule id="4200100" level="3">
+  <rule id="420100" level="3">
     <if_sid>420010</if_sid>
     <field name="category">^DETECTION_CATEGORY_APPLICATION_PATCH$</field>
     <description>ESET: Application patch rules group.</description>
