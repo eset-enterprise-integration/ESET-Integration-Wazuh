@@ -13,7 +13,7 @@ class ServiceClientWazuh(ServiceClient):
         super().__init__()
 
     def _get_config(self) -> Config:
-        return Config("Wazuh", "1.0.0")
+        return Config("Wazuh", "1.0.1")
 
     def _get_transformer_detections(self) -> TransformerDetectionsWazuh:
         return TransformerDetectionsWazuh(self.env_vars)
