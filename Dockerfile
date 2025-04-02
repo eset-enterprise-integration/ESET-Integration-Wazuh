@@ -2,8 +2,6 @@ FROM python:3.11-slim
 
 WORKDIR /eset_integration
 
-COPY requirements.txt .
-
 RUN apt-get update && apt-get install -y git
 
 RUN pip install --upgrade pip
