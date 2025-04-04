@@ -19,13 +19,22 @@ class TransformerDetectionsWazuh(TransformerDetections):
         try:
             with open(f"./eset_integration.log", "a") as fp:
                 for dict_item in validated_data:
-                    fp.write(json.dumps(dict_item) + "\n")
+                    self.clean_up_elastic(dict_item)
+                    fp.write(json.dumps({"eset": dict_item}) + "\n")
         except Exception as e:
             logging.error(e)
             return last_detection, False
 
         last_detection = max(validated_data, key=lambda detection: detection.get("occurTime")).get("occurTime")  # type: ignore
         return last_detection, True
+
+    def clean_up_elastic(self, dict_item):
+        if not dict_item.get("networkCommunication"):
+            del dict_item["networkCommunication"]
+        if not dict_item.get("triggeringEvent"):
+            del dict_item["triggeringEvent"]
+        elif not dict_item.get("triggeringEvent").get("data"):
+            del dict_item["triggeringEvent"]["data"]
 
 
 class LastDetectionTimeHandlerWazuh(LastDetectionTimeHandler):
